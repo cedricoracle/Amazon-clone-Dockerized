@@ -16,12 +16,7 @@ pipeline {
                 sh 'npm test'
             }
         }
-        // run sonarqube test
-        stage('Run Sonarqube') {
-            environment {
-                scannerHome = tool 'ibt-sonarqube';
-            }
-            steps {
+         steps {
               withSonarQubeEnv(credentialsId: 'ibt-sonar', installationName: 'IBT sonarqube') {
                 sh "${scannerHome}/bin/sonar-scanner"
               }
