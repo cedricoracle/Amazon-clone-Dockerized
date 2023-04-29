@@ -27,19 +27,7 @@ pipeline {
               }
             }
         }
-         // run sonarqube test
-        stage('Run Sonarqube') {
-            environment {
-                scannerHome = tool 'ibt-sonarqube';
-            }
-        stage('build Docker Container') {
-            steps {
-                script {
-                    // build image
-                    docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest")
-                }
-            }
-        }
+       
         stage('Trivy Scan (Aqua)') {
             steps {
                 sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest'
